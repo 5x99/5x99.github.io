@@ -1,16 +1,18 @@
-<nav class="sidebar-nav" aria-label="Sidebar navigation" role="navigation">
-  <h2 class="sidebar-title">Contents</h2>
-  <ul class="sidebar-list">
-    {% assign pages = site.pages | sort: "url" %}
-    {% for p in pages %}
-      {% if p.nav == true and p.url contains "/" %}
-        <li>
-          <a href="{{ p.url | relative_url }}" 
-             {% if page.url == p.url %}aria-current="page" class="active"{% endif %}>
-            {{ p.title }}
-          </a>
-        </li>
-      {% endif %}
+<!-- Table of Contents (TOC) for posts and pages -->
+{% if page.layout == "post" or page.layout == "page" %}
+<nav class="sidebar-nav toc-nav" aria-label="Table of contents" role="navigation">
+  <h2 class="sidebar-title">On This Page</h2>
+  
+  {% if page.toc %}
+    <ul class="toc-list">
+    {% for item in page.toc %}
+      <li class="toc-item toc-level-{{ item.level | default: 2 }}">
+        <a href="{{ item.url }}" class="toc-link">{{ item.title }}</a>
+      </li>
     {% endfor %}
-  </ul>
+    </ul>
+  {% else %}
+    <p class="toc-hint">Use proper heading hierarchy (h2, h3, h4) in your content to enable table of contents.</p>
+  {% endif %}
 </nav>
+{% endif %}

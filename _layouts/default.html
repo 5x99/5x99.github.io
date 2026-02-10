@@ -19,12 +19,10 @@
 
 <main id="main" role="main">
   <div class="container">
-    <!-- Navigation Sidebar -->
-    {% if page.layout != 'post' %}
+    <!-- Table of Contents Sidebar (only on pages with headings) -->
     <aside class="sidebar">
       {% include nav.html %}
     </aside>
-    {% endif %}
 
     <!-- Main Content -->
     <article class="main-content">

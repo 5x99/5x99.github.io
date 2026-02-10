@@ -418,6 +418,65 @@ article {
 }
 
 /* ============================================================================
+   Table of Contents (TOC)
+   ============================================================================ */
+
+.toc-nav {
+  position: sticky;
+  top: var(--spacing-lg);
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid var(--color-border);
+  padding-left: 0;
+}
+
+.toc-item {
+  margin: 0;
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.toc-item a {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  transition: color 0.2s;
+}
+
+.toc-item a:hover {
+  color: var(--color-primary);
+  background-color: var(--color-border);
+  text-decoration: none;
+}
+
+/* Indentation for nested levels */
+.toc-level-3 a {
+  padding-left: calc(var(--spacing-md) + var(--spacing-lg));
+  font-size: 0.9em;
+}
+
+.toc-level-4 a {
+  padding-left: calc(var(--spacing-md) + 2 * var(--spacing-lg));
+  font-size: 0.85em;
+  color: var(--color-text-light);
+}
+
+.toc-hint {
+  margin: 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  font-style: italic;
+  text-align: center;
+}
+
+/* ============================================================================
    Posts List
    ============================================================================ */
 

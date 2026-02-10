@@ -1,12 +1,15 @@
 <nav class="site-nav" aria-label="Main navigation" role="navigation">
   <ul class="nav-list">
-    <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}><strong>Home</strong></a></li>
-    <li><a href="{{ '/section1/' | relative_url }}" {% if page.url contains '/section1/' %}aria-current="page"{% endif %}>Section 1</a></li>
-    <li><a href="{{ '/section2/' | relative_url }}" {% if page.url contains '/section2/' %}aria-current="page"{% endif %}>Section 2</a></li>
-  </ul>
-  
-  <ul class="nav-list nav-secondary">
-    <li><a href="{{ '/posts/' | relative_url }}" {% if page.url contains '/posts/' %}aria-current="page"{% endif %}>Posts</a></li>
-    <li><a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}aria-current="page"{% endif %}>About</a></li>
+    {% assign pages = site.pages | sort: "url" %}
+    {% for p in pages %}
+      {% if p.nav == true and p.url contains "/" %}
+        <li>
+          <a href="{{ p.url | relative_url }}" 
+             {% if page.url == p.url %}aria-current="page"{% endif %}>
+            {{ p.title }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
   </ul>
 </nav>
