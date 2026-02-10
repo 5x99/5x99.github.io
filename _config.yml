@@ -6,6 +6,7 @@ description: "A blog documenting the journey through computer related problems."
 author: "0000099"
 email: "0000099@duck.com"
 twitter: https://bsky.app/profile/0000099.xyz
+logo: /assets/logo.png
 
 # Plugins
 plugins:

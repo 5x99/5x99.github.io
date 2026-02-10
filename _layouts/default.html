@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+</head>
+
+<body>
+
+  <!-- header -->
+  <div id="header">
+    <a href="{{ "/" | relative_url }}">
+      <img src="{{ site.logo | default: "/assets/logo.png" | relative_url }}"
+           width="23" height="15" alt="">
+    </a>
+    <a id="headerLink" href="{{ "/" | relative_url }}">
+      {{ site.title }}
+    </a>
+    <span id="headerSubtitle">
+      {{ site.subtitle }}
+    </span>
+  </div>
+
+  <!-- top menu -->
+  <div id="menu">
+    <span class="left">
+      {% for item in site.data.menu.left %}
+        <a href="{{ item.url | relative_url }}"
+           class="{% if page.url == item.url %}thisSite{% endif %}">
+          {{ item.label }}
+        </a>
+      {% endfor %}
+    </span>
+
+    <span class="right">
+      {% for item in site.data.menu.right %}
+        <a href="{{ item.url | relative_url }}">{{ item.label }}</a>
+      {% endfor %}
+    </span>
+  </div>
+
+  <!-- content -->
+  <div id="content">
+
+    {% comment %}
+      werc-style automatic nav:
+      - determine current directory
+      - list sibling pages
+      - show only if more than one page exists
+    {% endcomment %}
+
+    {% assign parts = page.path | split: "/" %}
+    {% assign section = parts | slice: 0, parts.size | join: "/" %}
+    {% assign siblings = site.pages | where_exp: "p", "p.path contains section" %}
+
+    {% if siblings.size > 1 %}
+      <div id="nav">
+        <ul>
+          {% for p in siblings %}
+            {% if p.title %}
+              <li>
+                <a href="{{ p.url | relative_url }}"
+                   class="{% if p.url == page.url %}thisSite{% endif %}">
+                  {{ p.title }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- main -->
+    <div id="main">
+
+      {% if page.body_head %}
+        {{ page.body_head }}
+      {% endif %}
+
+      {{ content }}
+
+      {% if page.body_foot %}
+        {{ page.body_foot }}
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div id="footer">
+    <span class="right">
+      © {{ site.time | date: "%Y" }} {{ site.title }}
+    </span>
+  </div>
+
+</body>
+</html>
