@@ -1,18 +1,7 @@
-<!-- Table of Contents (TOC) for posts and pages -->
+<!-- Table of Contents (auto-generated from page headings) -->
 {% if page.layout == "post" or page.layout == "page" %}
 <nav class="sidebar-nav toc-nav" aria-label="Table of contents" role="navigation">
   <h2 class="sidebar-title">On This Page</h2>
-  
-  {% if page.toc %}
-    <ul class="toc-list">
-    {% for item in page.toc %}
-      <li class="toc-item toc-level-{{ item.level | default: 2 }}">
-        <a href="{{ item.url }}" class="toc-link">{{ item.title }}</a>
-      </li>
-    {% endfor %}
-    </ul>
-  {% else %}
-    <p class="toc-hint">Use proper heading hierarchy (h2, h3, h4) in your content to enable table of contents.</p>
-  {% endif %}
+  <p class="toc-loading">Loading...</p>
 </nav>
 {% endif %}

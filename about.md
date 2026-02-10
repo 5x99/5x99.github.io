@@ -3,19 +3,6 @@ title: About
 description: "About 0000099 - A blog documenting tech solutions, troubleshooting, and computer science insights"
 permalink: /about
 nav: true
-toc:
-  - title: "Welcome"
-    url: "#welcome"
-    level: 2
-  - title: "About This Site"
-    url: "#about-this-site"
-    level: 2
-  - title: "Content & Topics"
-    url: "#content--topics"
-    level: 2
-  - title: "Technology Stack"
-    url: "#technology-stack"
-    level: 2
 ---
 
 ## Welcome

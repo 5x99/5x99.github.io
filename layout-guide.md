@@ -1,0 +1,150 @@
+---
+title: "Layout & Navigation Guide"
+description: "Guide to using the Table of Contents sidebar and page navigation"
+permalink: /docs/layout
+nav: true
+---
+
+## New Layout Structure
+
+The site layout is organized for clarity and usability:
+
+### Top Navigation Menu
+- Displays all pages marked with `nav: true` in their front matter
+- Horizontal layout with blue background
+- Dynamically generated from your pages
+- Shows current page with darker highlighting
+
+### Sidebar (Table of Contents)
+- Shows "On This Page" for posts and pages
+- **Automatically generates** from your page headings
+- Helps readers navigate longer articles
+- Sticky positioning on desktop (follows scroll)
+- Highlights current section as you scroll (scroll spy)
+- Collapses to single column on mobile
+
+### Main Content Area
+- Full-width on mobile
+- Constrained width for readability on desktop
+- Semantic HTML for accessibility
+
+## Adding Navigation to Pages
+
+To add a page to the main navigation menu, include this in your front matter:
+
+```yaml
+---
+title: "My Page Title"
+nav: true
+---
+```
+
+## Automatic Table of Contents
+
+The table of contents is **automatically generated** from your page headings! Just write your content with proper heading hierarchy, and the TOC appears in the sidebar.
+
+### How It Works
+
+1. You write content with h2, h3, h4 headings
+2. JavaScript runs on page load
+3. Extracts heading IDs or generates them automatically
+4. Builds the TOC in the sidebar
+5. Enables scroll spy (highlights current section as you read)
+
+### No Configuration Needed
+
+Just write your post with clear section headings:
+
+```markdown
+---
+title: "My Article"
+---
+
+## Introduction
+
+Your intro content here...
+
+## Main Section
+
+Main content...
+
+### Subsection
+
+Sub content...
+
+## Conclusion
+
+Wrap-up...
+```
+
+That's it! The TOC will automatically appear in the sidebar.
+
+### Best Practices for Headings
+
+- Start with h2 for first-level sections (h1 is your page title)
+- Use h3 for subsections
+- Use h4 for sub-subsections
+- **Don't skip levels**: h2 → h3 → h4 (not h2 → h4)
+- Use descriptive, clear heading text
+- Avoid special characters in headings
+- Keep headings concise but informative
+
+### Automatic ID Generation
+
+If a heading doesn't have an ID, the script generates one automatically:
+
+```
+## My Section → id="my-section"
+## Section 2 Code Example → id="section-2-code-example"
+```
+
+IDs are lowercase with hyphens replacing spaces and removing special characters.
+
+### Scroll Spy Feature
+
+As you scroll down the page, the TOC automatically highlights which section you're currently viewing:
+- Makes it clear where you are in the document
+- Helps readers navigate long posts
+- Works seamlessly without any extra configuration
+
+## Benefits of This Layout
+
+✅ **Clean navigation**: Single horizontal menu + smart sidebar  
+✅ **Better UX**: Automatic TOC helps readers navigate  
+✅ **Zero config**: Add `nav: true` to pages, that's all  
+✅ **Mobile-friendly**: Single column layout on small screens  
+✅ **Accessibility**: Semantic HTML and ARIA labels  
+✅ **SEO-friendly**: Proper heading hierarchy and structure  
+✅ **Smart highlighting**: Scroll spy shows current section  
+
+## Example Pages
+
+- **About** → [/about/](/about/) - See TOC in action
+- **Example Post** → [/2026/01/01/example-blog-post-with-automatic-table-of-contents/](/2026/01/01/example-blog-post-with-automatic-table-of-contents/) - Full TOC demonstration
+
+## Technical Details
+
+### TOC Generation Script
+
+The automatic TOC generator (`/assets/toc.js`) handles:
+- Parsing h2, h3, h4 headings from article content
+- Generating anchor IDs matching heading text
+- Building nested list structure
+- Implementing scroll spy functionality
+
+### Browser Support
+
+Works in all modern browsers:
+- Chrome/Edge (2020+)
+- Firefox (2020+)
+- Safari (2020+)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+Gracefully degrades if JavaScript is disabled.
+
+### Performance
+
+- Script is lightweight (~3KB)
+- Runs once on page load
+- Minimal performance impact
+- No external dependencies
