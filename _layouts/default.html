@@ -39,8 +39,7 @@
       {% assign folder = parts[0] %}
       {% assign prefix = folder | append: "/" %}
 
-      {% assign nav_pages = site.pages | where_exp: "p",
-        "p.path contains prefix and p.path endswith '.md'" %}
+      {% assign nav_pages = site.pages | where_exp: "p", "p.path contains prefix" %}
     {% endif %}
 
     <!-- LEFT NAV -->
