@@ -36,10 +36,37 @@ layout: default
   </header>
 
   {% comment %}
-    Render content and automatically add heading IDs
+    Render content and capture for TOC generation
   {% endcomment %}
+  {% capture rendered_content %}{{ content }}{% endcapture %}
+  
+  {% comment %}
+    Extract all headings (h2, h3, h4) from the rendered content
+    Pattern: <h[2-4][^>]*>text</h[2-4]>
+  {% endcomment %}
+  {% assign headings = rendered_content | scan: '<h([2-4])[^>]*>([^<]+)<\/h[2-4]>' %}
+  
+  {% comment %}
+    Display TOC if there are headings
+  {% endcomment %}
+  {% if headings.size > 0 %}
+  <nav class="post-toc" aria-label="Table of contents">
+    <h3 class="post-toc-title">Quick Navigation</h3>
+    <ul class="post-toc-list">
+    {% for heading in headings %}
+      {% assign level = heading[0] %}
+      {% assign text = heading[1] %}
+      {% assign id = text | slugify %}
+      <li class="toc-item toc-level-{{ level }}">
+        <a href="#{{ id }}" class="toc-link">{{ text }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+
   <div class="post-content" itemprop="articleBody">
-    {{ content | add_heading_ids }}
+    {{ content }}
   </div>
 
   {% if page.tags %}
@@ -70,8 +97,3 @@ layout: default
     {% endif %}
   </ul>
 </nav>
-
-{% comment %}
-  Table of Contents for post sidebar
-  This generates TOC from the rendered post content above
-{% endcomment %}
