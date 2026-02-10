@@ -8,13 +8,9 @@
 
 <body>
 
-  <!-- header -->
+  <!-- HEADER -->
   <div id="header">
-    <a href="{{ "/" | relative_url }}">
-      <img src="{{ site.logo | default: "/assets/logo.png" | relative_url }}"
-           width="23" height="15" alt="">
-    </a>
-    <a id="headerLink" href="{{ "/" | relative_url }}">
+    <a href="{{ "/" | relative_url }}" id="headerLink">
       {{ site.title }}
     </a>
     <span id="headerSubtitle">
@@ -22,46 +18,51 @@
     </span>
   </div>
 
-  <!-- top menu -->
+  <!-- TOP MENU -->
   <div id="menu">
     <span class="left">
-      {% for item in site.data.menu.left %}
-        <a href="{{ item.url | relative_url }}"
-           class="{% if page.url == item.url %}thisSite{% endif %}">
-          {{ item.label }}
-        </a>
-      {% endfor %}
+      <a href="{{ "/" | relative_url }}">home</a>
+      <a href="{{ "/section1/" | relative_url }}">section1</a>
+      <a href="{{ "/section2/" | relative_url }}">section2</a>
     </span>
-
     <span class="right">
-      {% for item in site.data.menu.right %}
-        <a href="{{ item.url | relative_url }}">{{ item.label }}</a>
-      {% endfor %}
+      <a href="{{ "/link1/" | relative_url }}">link1</a>
+      <a href="{{ "/link2/" | relative_url }}">link2</a>
     </span>
   </div>
 
-  <!-- content -->
+  <!-- CONTENT -->
   <div id="content">
 
-    {% comment %}
+    {%- comment -%}
       werc-style automatic nav:
-      - determine current directory
-      - list sibling pages
-      - show only if more than one page exists
-    {% endcomment %}
+      folder/
+        page.md
+    {%- endcomment -%}
 
     {% assign parts = page.path | split: "/" %}
-    {% assign section = parts | slice: 0, parts.size | join: "/" %}
-    {% assign siblings = site.pages | where_exp: "p", "p.path contains section" %}
+    {% if parts.size > 1 %}
+      {% assign folder = parts[0] %}
+      {% assign prefix = folder | append: "/" %}
 
-    {% if siblings.size > 1 %}
+      {% assign nav_pages = site.pages | where_exp: "p",
+        "p.path contains prefix and p.ext == '.md'" %}
+    {% endif %}
+
+    <!-- LEFT NAV -->
+    {% if nav_pages and nav_pages.size > 1 %}
       <div id="nav">
         <ul>
-          {% for p in siblings %}
-            {% if p.title %}
+          {% for p in nav_pages %}
+            {% if p.title and p.url != page.url %}
               <li>
-                <a href="{{ p.url | relative_url }}"
-                   class="{% if p.url == page.url %}thisSite{% endif %}">
+                <a href="{{ p.url | relative_url }}">
+                  {{ p.title }}
+                </a>
+              </li>
+            {% elsif p.url == page.url %}
+              <li>
+                <a class="thisSite" href="{{ p.url | relative_url }}">
                   {{ p.title }}
                 </a>
               </li>
@@ -71,28 +72,11 @@
       </div>
     {% endif %}
 
-    <!-- main -->
+    <!-- MAIN CONTENT -->
     <div id="main">
-
-      {% if page.body_head %}
-        {{ page.body_head }}
-      {% endif %}
-
       {{ content }}
-
-      {% if page.body_foot %}
-        {{ page.body_foot }}
-      {% endif %}
-
     </div>
 
-  </div>
-
-  <!-- footer -->
-  <div id="footer">
-    <span class="right">
-      © {{ site.time | date: "%Y" }} {{ site.title }}
-    </span>
   </div>
 
 </body>
