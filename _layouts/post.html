@@ -32,10 +32,8 @@ layout: default
 
     {% if page.excerpt %}
     <p class="post-excerpt" itemprop="description">{{ page.excerpt }}</p>
+    {% endif %}
   </header>
-
-  <!-- TOC will be generated here by JavaScript -->
-  <div id="toc-container"></div>
 
   <div class="post-content" itemprop="articleBody">
     {{ content }}

@@ -1,7 +1,7 @@
 /**
- * Table of Contents Generator
- * Generates TOC from post/article headings and adds heading IDs
- * Works at runtime in JavaScript for maximum compatibility
+ * Table of Contents Generator for Sidebar
+ * Generates TOC from post headings and displays in sidebar
+ * Adds heading IDs for linking
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,17 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function generateTableOfContents() {
-  // Find post content area
+  // Find post content area (only on post pages)
   const postContent = document.querySelector('.post-content');
-  if (!postContent) return;
+  const sidebarContent = document.getElementById('sidebar-content');
+  
+  if (!postContent || !sidebarContent) return;
 
-  // Get all h2, h3, h4 headings
+  // Get all h2, h3, h4 headings from the post
   const headings = postContent.querySelectorAll('h2, h3, h4');
   
   if (headings.length === 0) {
-    // No headings found, remove TOC container
-    const tocContainer = document.getElementById('toc-container');
-    if (tocContainer) tocContainer.remove();
+    // No headings, keep default Topics
     return;
   }
 
@@ -31,68 +31,31 @@ function generateTableOfContents() {
     }
   });
 
-  // Build TOC structure
+  // Build TOC navigation
   const tocNav = document.createElement('nav');
-  tocNav.className = 'post-toc';
-  tocNav.setAttribute('aria-label', 'Table of contents');
+  tocNav.className = 'sidebar-toc';
+  tocNav.setAttribute('aria-label', 'Post contents');
 
-  const tocTitle = document.createElement('h3');
-  tocTitle.className = 'post-toc-title';
-  tocTitle.textContent = 'Quick Navigation';
+  const tocTitle = document.createElement('h2');
+  tocTitle.className = 'sidebar-title';
+  tocTitle.textContent = 'Contents';
   tocNav.appendChild(tocTitle);
 
   // Build nested list structure
   const tocList = document.createElement('ul');
-  tocList.className = 'post-toc-list';
+  tocList.className = 'sidebar-list';
 
-  let currentLevel = 0;
-  let currentList = tocList;
-  const listStack = [{ level: 1, list: tocList }];
+  let previousLevel = 1;
+  const levelStack = [{ level: 1, element: tocList }];
 
   headings.forEach((heading) => {
-    const level = parseInt(heading.tagName[1]); // Extract number from h2, h3, h4
+    const level = parseInt(heading.tagName[1]); // h2=2, h3=3, h4=4
     const id = heading.id;
     const text = heading.textContent;
 
-    // Adjust nesting based on heading level
-    while (listStack.length > 0 && listStack[listStack.length - 1].level >= level) {
-      listStack.pop();
-    }
-
-    // Create new nested lists if needed
-    while (listStack[listStack.length - 1].level < level - 1) {
-      const newList = document.createElement('ul');
-      newList.className = 'post-toc-list';
-
-      const tempItem = document.createElement('li');
-      tempItem.appendChild(newList);
-
-      listStack[listStack.length - 1].list.appendChild(tempItem);
-      listStack.push({ level: listStack[listStack.length - 1].level + 1, list: newList });
-    }
-
-    // Create new nested list if jumping levels
-    if (listStack[listStack.length - 1].level < level) {
-      const newList = document.createElement('ul');
-      newList.className = 'post-toc-list';
-
-      if (listStack[listStack.length - 1].list.lastElementChild) {
-        listStack[listStack.length - 1].list.lastElementChild.appendChild(newList);
-      } else {
-        const tempItem = document.createElement('li');
-        tempItem.appendChild(newList);
-        listStack[listStack.length - 1].list.appendChild(tempItem);
-      }
-
-      listStack.push({ level: level, list: newList });
-      currentList = newList;
-    } else {
-      currentList = listStack[listStack.length - 1].list;
-    }
-
-    // Create TOC item
+    // Create list item
     const item = document.createElement('li');
-    item.className = `toc-item toc-level-${level}`;
+    item.className = `toc-item-level-${level}`;
 
     const link = document.createElement('a');
     link.href = `#${id}`;
@@ -100,20 +63,40 @@ function generateTableOfContents() {
     link.textContent = text;
 
     item.appendChild(link);
-    currentList.appendChild(item);
+
+    // Handle nesting
+    if (level > previousLevel) {
+      // Going deeper - create nested list
+      for (let i = previousLevel; i < level; i++) {
+        const newList = document.createElement('ul');
+        newList.className = 'sidebar-list';
+        
+        const tempItem = document.createElement('li');
+        tempItem.appendChild(newList);
+        
+        levelStack[levelStack.length - 1].element.appendChild(tempItem);
+        levelStack.push({ level: i + 1, element: newList });
+      }
+    } else if (level < previousLevel) {
+      // Going back up - pop from stack
+      while (levelStack.length > 1 && levelStack[levelStack.length - 1].level > level) {
+        levelStack.pop();
+      }
+    }
+
+    levelStack[levelStack.length - 1].element.appendChild(item);
+    previousLevel = level;
   });
 
   tocNav.appendChild(tocList);
 
-  // Insert TOC into container
-  const tocContainer = document.getElementById('toc-container');
-  if (tocContainer) {
-    tocContainer.appendChild(tocNav);
-  }
+  // Replace sidebar content with TOC
+  sidebarContent.innerHTML = '';
+  sidebarContent.appendChild(tocNav);
 }
 
 /**
- * Add scroll spy to highlight current section
+ * Add scroll spy to highlight current section in TOC
  */
 function addScrollSpy() {
   const headings = document.querySelectorAll('.post-content h2, .post-content h3, .post-content h4');
@@ -161,5 +144,6 @@ function generateSlug(text) {
     .replace(/-+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
+
 
 

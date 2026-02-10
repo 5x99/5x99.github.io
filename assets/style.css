@@ -434,29 +434,55 @@ article {
   padding-left: 0;
 }
 
-.toc-item {
+.toc-item, .toc-item-level-2, .toc-item-level-3, .toc-item-level-4 {
   margin: 0;
   border-left: 2px solid transparent;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
 
-.toc-item a {
+.toc-link {
   display: block;
   padding: var(--spacing-sm) var(--spacing-md);
   color: var(--color-text);
   text-decoration: none;
   font-size: var(--font-size-sm);
-  transition: color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
-.toc-item a:hover {
+.toc-link:hover {
   color: var(--color-primary);
   background-color: var(--color-border);
   text-decoration: none;
+}
+
+/* Scroll spy active state */
+.toc-link.active {
+  color: var(--color-primary);
+  font-weight: 600;
   border-left-color: var(--color-primary);
 }
 
+.toc-link.active:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.05);
+}
+
 /* Indentation for nested levels */
+.toc-item-level-2 .toc-link {
+  padding-left: var(--spacing-md);
+}
+
+.toc-item-level-3 .toc-link {
+  padding-left: calc(var(--spacing-md) + var(--spacing-lg));
+  font-size: 0.9em;
+}
+
+.toc-item-level-4 .toc-link {
+  padding-left: calc(var(--spacing-md) + 2 * var(--spacing-lg));
+  font-size: 0.85em;
+  color: var(--color-text-light);
+}
+
+/* Old post-toc styles (keeping for backward compatibility if needed) */
 .toc-level-3 a {
   padding-left: calc(var(--spacing-md) + var(--spacing-lg));
   font-size: 0.9em;
@@ -475,28 +501,6 @@ article {
   color: var(--color-text-light);
   font-style: italic;
   text-align: center;
-}
-
-/* Post-specific TOC (inline with content) */
-.post-toc {
-  margin: var(--spacing-xl) 0;
-  padding: var(--spacing-lg);
-  border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-primary);
-  background-color: var(--color-bg-secondary);
-  border-radius: 4px;
-}
-
-.post-toc-title {
-  margin: 0 0 var(--spacing-md);
-  font-size: var(--font-size-lg);
-  color: var(--color-primary);
-}
-
-.post-toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 /* ============================================================================
