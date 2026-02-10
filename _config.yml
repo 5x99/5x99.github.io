@@ -22,15 +22,3 @@ paginate: 10
 markdown: kramdown
 highlighter: rouge
 excerpt_separator: "\n\n"
-
-nav:
-  - name: about
-    url: /
-  - name: posts
-    url: /posts/
-  - name: philosophy
-    url: /philosophy/
-  - name: projects
-    url: /projects/
-  - name: contact
-    url: /contact/
