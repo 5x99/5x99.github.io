@@ -1,71 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ page.title | default: site.title }}</title>
-  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+  <title>{{ page.title }} | {{ site.title }}</title>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <div id="header">
-    <a href="{{ "/" | relative_url }}" id="headerLink">
-      {{ site.title }}
-    </a>
-    <span id="headerSubtitle">
-      {{ site.subtitle }}
-    </span>
-  </div>
+<!-- HEADER -->
+<div id="header">
+  <a href="{{ "/" | relative_url }}" id="headerLink">
+    {{ site.title }}
+  </a>
+  <span id="headerSubtitle">
+    {{ site.description }}
+  </span>
+</div>
 
-  <!-- TOP MENU -->
-  <div id="menu">
-    <span class="left">
-      <a href="{{ "/" | relative_url }}">home</a>
-      <a href="{{ "/section1/" | relative_url }}">section1</a>
-      <a href="{{ "/section2/" | relative_url }}">section2</a>
-    </span>
-    <span class="right">
-      <a href="{{ "/link1/" | relative_url }}">link1</a>
-      <a href="{{ "/link2/" | relative_url }}">link2</a>
-    </span>
-  </div>
+<hr class="hidden">
 
-  <!-- CONTENT -->
-  <div id="content">
+<!-- TOP MENU (NOT NAVBAR) -->
+<div id="menu">
+  <a href="{{ "/" | relative_url }}"><b>home</b></a>
 
-    {% assign parts = page.path | split: "/" %}
-    {% if parts.size > 1 %}
-      {% assign folder = parts[0] %}
-      {% assign prefix = folder | append: "/" %}
-
-      {% assign nav_pages = site.pages | where_exp: "p", "p.path contains prefix" %}
+  {% for p in site.pages %}
+    {% if p.nav == true and p.url != "/" %}
+      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
     {% endif %}
+  {% endfor %}
 
-    <!-- LEFT NAV -->
-    {% if nav_pages and nav_pages.size > 1 %}
-      <div id="nav">
-        <ul>
-          {% for p in nav_pages %}
-            {% if p.title %}
-              <li>
-                <a href="{{ p.url | relative_url }}"
-                   class="{% if p.url == page.url %}thisSite{% endif %}">
-                  {{ p.title }}
-                </a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
+  <span class="right">
+    <a href="/feed.xml">rss</a>
+  </span>
+</div>
 
-    <!-- MAIN -->
-    <div id="main">
-      {{ content }}
-    </div>
+<hr class="hidden">
 
+<!-- CONTENT -->
+<div id="content">
+
+  <!-- NAVBAR (THIS IS THE REAL NAV) -->
+  <div id="nav">
+    <ul>
+      {% for p in site.pages %}
+        {% if p.nav == true %}
+          <li>
+            <a href="{{ p.url | relative_url }}"
+               {% if p.url == page.url %}style="font-weight:bold"{% endif %}>
+              {{ p.title }}/
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
   </div>
+
+  <hr class="hidden">
+
+  <!-- MAIN CONTENT -->
+  <div id="main">
+    {{ content }}
+  </div>
+
+</div>
 
 </body>
 </html>
