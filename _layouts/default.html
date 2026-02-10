@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.lang | default: 'en' }}">
 <head>
   <meta charset="utf-8">
-  <title>{{ page.title | default: site.title }}</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+  
+  {% include head-custom.html %}
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 
 <body>
 
+<!-- Skip to main content link for accessibility -->
+<a href="#main" class="skip-to-content">Skip to main content</a>
+
 {% include header.html %}
-<hr class="hidden">
-
 {% include menu.html %}
-<hr class="hidden">
 
-<div id="content">
+<main id="main" role="main">
+  <div class="container">
+    <!-- Navigation Sidebar -->
+    {% if page.layout != 'post' %}
+    <aside class="sidebar">
+      {% include nav.html %}
+    </aside>
+    {% endif %}
 
-  {% include nav.html %}
-  <hr class="hidden">
-
-  <div id="main">
-    {{ content }}
+    <!-- Main Content -->
+    <article class="main-content">
+      {{ content }}
+    </article>
   </div>
+</main>
 
-</div>
+{% include footer.html %}
 
 </body>
 </html>

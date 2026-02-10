@@ -1,12 +1,18 @@
 url: "https://0000099.xyz"
-production_url: "https://0000099.xyz"   
+production_url: "https://0000099.xyz"
 
 title: "0000099"
-description: "A blog documenting the journey through computer related problems."
+description: "A blog documenting the journey through computer related problems, solutions, and tech insights."
 author: "0000099"
 email: "0000099@duck.com"
-twitter: https://bsky.app/profile/0000099.xyz
+baseurl: ""
+social:
+  - platform: bluesky
+    url: https://bsky.app/profile/0000099.xyz
+
 logo: /assets/logo.png
+lang: en
+timezone: UTC
 
 # Plugins
 plugins:
@@ -14,11 +20,33 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# SEO
+# SEO & Permalinks
 permalink: /:year/:month/:day/:title/
 paginate: 10
+paginate_path: "/page/:num/"
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
 excerpt_separator: "\n\n"
+incremental: true
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: "{{ site.author }}"
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default

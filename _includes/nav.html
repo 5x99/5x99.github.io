@@ -1,15 +1,16 @@
-<div id="nav">
-  <ul>
+<nav class="sidebar-nav" aria-label="Sidebar navigation" role="navigation">
+  <h2 class="sidebar-title">Contents</h2>
+  <ul class="sidebar-list">
     {% assign pages = site.pages | sort: "url" %}
     {% for p in pages %}
       {% if p.nav == true and p.url contains "/" %}
         <li>
-          <a href="{{ p.url }}"
-             {% if page.url == p.url %}style="font-weight:bold"{% endif %}>
+          <a href="{{ p.url | relative_url }}" 
+             {% if page.url == p.url %}aria-current="page" class="active"{% endif %}>
             {{ p.title }}
           </a>
         </li>
       {% endif %}
     {% endfor %}
   </ul>
-</div>
+</nav>

@@ -1,4 +1,14 @@
-<div id="header">
-  <a id="headerLink" href="/">0000099.xyz</a>
-  <span id="headerSubtitle">software that sucks less</span>
-</div>
+<header class="site-header" role="banner">
+  <div class="header-content">
+    <div class="site-title">
+      <a href="{{ '/' | relative_url }}" class="home-link" title="Home">
+        {% if site.logo %}
+        <img src="{{ site.logo | relative_url }}" alt="{{ site.title }}" class="site-logo">
+        {% endif %}
+        <span class="site-name">{{ site.title }}</span>
+      </a>
+    </div>
+    
+    <p class="site-description">{{ site.description }}</p>
+  </div>
+</header>

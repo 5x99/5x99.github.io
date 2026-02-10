@@ -1,8 +1,34 @@
-<ul>
-{% for post in site.posts limit:10 %}
-  <li>
-    <a href="{{ post.url }}">{{ post.title }}</a>
-    <span style="color:#666"> — {{ post.date | date: "%Y-%m-%d" }}</span>
-  </li>
-{% endfor %}
-</ul>
+<div class="posts-list">
+  {% if site.posts.size > 0 %}
+    <ul class="posts" role="list">
+    {% for post in site.posts limit:10 %}
+      <li class="post-item" role="listitem">
+        <article class="post-card">
+          <header class="post-card-header">
+            <h3 class="post-card-title">
+              <a href="{{ post.url | relative_url }}" title="{{ post.title | escape }}">{{ post.title }}</a>
+            </h3>
+            <time class="post-card-date" datetime="{{ post.date | date_to_xmlschema }}">
+              {{ post.date | date: "%B %d, %Y" }}
+            </time>
+          </header>
+          
+          {% if post.excerpt %}
+          <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}...</p>
+          {% endif %}
+          
+          <a href="{{ post.url | relative_url }}" class="post-card-link">Read more &rarr;</a>
+        </article>
+      </li>
+    {% endfor %}
+    </ul>
+
+    {% if site.posts.size > 10 %}
+    <div class="posts-pagination">
+      <a href="{{ '/posts/' | relative_url }}" class="btn btn-primary">View All Posts</a>
+    </div>
+    {% endif %}
+  {% else %}
+    <p class="no-posts">No posts yet. Stay tuned!</p>
+  {% endif %}
+</div>
