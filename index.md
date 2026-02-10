@@ -3,6 +3,7 @@ title: Home
 description: "0000099 - A blog about technology, troubleshooting, and computer science"
 permalink: /
 sitemap_exclude: n
+layout: default
 ---
 
 # Welcome to 0000099.xyz
