@@ -2,62 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body>
 
-<!-- HEADER -->
-<div id="header">
-  <a href="{{ "/" | relative_url }}" id="headerLink">
-    {{ site.title }}
-  </a>
-  <span id="headerSubtitle">
-    {{ site.description }}
-  </span>
-</div>
-
+{% include header.html %}
 <hr class="hidden">
 
-<!-- TOP MENU (NOT NAVBAR) -->
-<div id="menu">
-  <a href="{{ "/" | relative_url }}"><b>home</b></a>
-
-  {% for p in site.pages %}
-    {% if p.nav == true and p.url != "/" %}
-      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-    {% endif %}
-  {% endfor %}
-
-  <span class="right">
-    <a href="/feed.xml">rss</a>
-  </span>
-</div>
-
+{% include menu.html %}
 <hr class="hidden">
 
-<!-- CONTENT -->
 <div id="content">
 
-  <!-- NAVBAR (THIS IS THE REAL NAV) -->
-  <div id="nav">
-    <ul>
-      {% for p in site.pages %}
-        {% if p.nav == true %}
-          <li>
-            <a href="{{ p.url | relative_url }}"
-               {% if p.url == page.url %}style="font-weight:bold"{% endif %}>
-              {{ p.title }}/
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
-
+  {% include nav.html %}
   <hr class="hidden">
 
-  <!-- MAIN CONTENT -->
   <div id="main">
     {{ content }}
   </div>

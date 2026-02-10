@@ -23,9 +23,14 @@ markdown: kramdown
 highlighter: rouge
 excerpt_separator: "\n\n"
 
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /:collection/:year/:month/:day/:title/
-
+nav:
+  - name: about
+    url: /
+  - name: posts
+    url: /posts/
+  - name: philosophy
+    url: /philosophy/
+  - name: projects
+    url: /projects/
+  - name: contact
+    url: /contact/

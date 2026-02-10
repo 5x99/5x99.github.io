@@ -1,0 +1,13 @@
+<div id="nav">
+  <ul>
+  {% for item in site.nav %}
+    <li>
+      <a href="{{ item.url }}">
+        {% if page.url == item.url %}<b>{% endif %}
+        {{ item.name }}
+        {% if page.url == item.url %}</b>{% endif %}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</div>
