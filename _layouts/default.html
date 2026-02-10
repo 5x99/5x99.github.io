@@ -34,19 +34,13 @@
   <!-- CONTENT -->
   <div id="content">
 
-    {%- comment -%}
-      werc-style automatic nav:
-      folder/
-        page.md
-    {%- endcomment -%}
-
     {% assign parts = page.path | split: "/" %}
     {% if parts.size > 1 %}
       {% assign folder = parts[0] %}
       {% assign prefix = folder | append: "/" %}
 
       {% assign nav_pages = site.pages | where_exp: "p",
-        "p.path contains prefix and p.ext == '.md'" %}
+        "p.path contains prefix and p.path endswith '.md'" %}
     {% endif %}
 
     <!-- LEFT NAV -->
@@ -54,15 +48,10 @@
       <div id="nav">
         <ul>
           {% for p in nav_pages %}
-            {% if p.title and p.url != page.url %}
+            {% if p.title %}
               <li>
-                <a href="{{ p.url | relative_url }}">
-                  {{ p.title }}
-                </a>
-              </li>
-            {% elsif p.url == page.url %}
-              <li>
-                <a class="thisSite" href="{{ p.url | relative_url }}">
+                <a href="{{ p.url | relative_url }}"
+                   class="{% if p.url == page.url %}thisSite{% endif %}">
                   {{ p.title }}
                 </a>
               </li>
@@ -72,7 +61,7 @@
       </div>
     {% endif %}
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <div id="main">
       {{ content }}
     </div>
