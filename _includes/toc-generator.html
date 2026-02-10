@@ -1,0 +1,39 @@
+{% comment %}
+  Table of Contents Generator
+  
+  This include generates a TOC from rendered HTML content containing h2/h3/h4 headings with IDs.
+  
+  Usage in post.html after content is rendered:
+  {% capture rendered_content %}{{ content | add_heading_ids }}{% endcapture %}
+  {% include toc-generator.html content=rendered_content %}
+  
+  The content must already have heading IDs assigned
+{% endcomment %}
+
+{% if include.content %}
+  {% assign content_str = include.content | strip_html %}
+  
+  {% comment %}
+    Extract all headings with IDs from the rendered HTML
+    Pattern: <h[2-4] id="[id]">[text]</h[2-4]>
+  {% endcomment %}
+  
+  {% assign headings = include.content | scan: '<h([2-4])\s+id="([^"]+)"[^>]*>([^<]+)<\/h[2-4]>' %}
+  
+  {% if headings.size > 0 %}
+  <nav class="post-toc" aria-label="Table of contents">
+    <h3 class="post-toc-title">Quick Navigation</h3>
+    <ul class="post-toc-list">
+    {% for heading in headings %}
+      {% assign level = heading[0] %}
+      {% assign id = heading[1] %}
+      {% assign text = heading[2] %}
+      <li class="toc-item toc-level-{{ level }}">
+        <a href="#{{ id }}" class="toc-link">{{ text }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+{% endif %}
+

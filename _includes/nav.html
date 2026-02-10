@@ -1,7 +1,18 @@
-<!-- Table of Contents (auto-generated from page headings) -->
+<!-- Table of Contents (auto-generated during Jekyll build) -->
 {% if page.layout == "post" or page.layout == "page" %}
-<nav class="sidebar-nav toc-nav" aria-label="Table of contents" role="navigation">
-  <h2 class="sidebar-title">On This Page</h2>
-  <p class="toc-loading">Loading...</p>
-</nav>
+
+  {% comment %}
+    TOC is included in post.html and rendered with the main-content.
+    This sidebar section is kept minimal for pages/posts that have their own TOC
+  {% endcomment %}
+
+  <nav class="sidebar-nav" aria-label="Categories" role="navigation">
+    <h2 class="sidebar-title">Topics</h2>
+    <ul class="sidebar-list">
+      <li><a href="/posts/">All Posts</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/">Home</a></li>
+    </ul>
+  </nav>
+
 {% endif %}

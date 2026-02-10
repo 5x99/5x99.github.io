@@ -35,8 +35,11 @@ layout: default
     {% endif %}
   </header>
 
+  {% comment %}
+    Render content and automatically add heading IDs
+  {% endcomment %}
   <div class="post-content" itemprop="articleBody">
-    {{ content }}
+    {{ content | add_heading_ids }}
   </div>
 
   {% if page.tags %}
@@ -67,3 +70,8 @@ layout: default
     {% endif %}
   </ul>
 </nav>
+
+{% comment %}
+  Table of Contents for post sidebar
+  This generates TOC from the rendered post content above
+{% endcomment %}
