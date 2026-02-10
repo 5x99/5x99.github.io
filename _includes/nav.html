@@ -1,13 +1,9 @@
 <div id="nav">
   <ul>
-  {% for item in site.nav %}
-    <li>
-      <a href="{{ item.url }}">
-        {% if page.url == item.url %}<b>{% endif %}
-        {{ item.name }}
-        {% if page.url == item.url %}</b>{% endif %}
-      </a>
-    </li>
-  {% endfor %}
+    <li><a href="/"><b>about</b></a></li>
+    <li><a href="/coding-style/">coding style</a></li>
+    <li><a href="/community/">community</a></li>
+    <li><a href="/projects/">projects</a></li>
+    <li><a href="/philosophy/">philosophy</a></li>
   </ul>
 </div>
