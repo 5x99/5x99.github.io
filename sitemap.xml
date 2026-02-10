@@ -42,8 +42,3 @@ sitemap_exclude: y
   {% endfor %}
 
 </urlset>
-  </url>
-    {% endunless %}
-  {% endfor %}
-
-</urlset>
