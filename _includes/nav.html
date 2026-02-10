@@ -1,13 +1,15 @@
 <div id="nav">
   <ul>
-  {% for item in site.nav %}
-    <li>
-      <a href="{{ item.url }}">
-        {% if page.url == item.url %}<b>{% endif %}
-        {{ item.name }}
-        {% if page.url == item.url %}</b>{% endif %}
-      </a>
-    </li>
-  {% endfor %}
+    {% assign pages = site.pages | sort: "url" %}
+    {% for p in pages %}
+      {% if p.nav == true and p.url contains "/" %}
+        <li>
+          <a href="{{ p.url }}"
+             {% if page.url == p.url %}style="font-weight:bold"{% endif %}>
+            {{ p.title }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
   </ul>
 </div>
