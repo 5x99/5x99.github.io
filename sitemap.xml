@@ -1,0 +1,35 @@
+---
+layout: null
+sitemap_exclude: y
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>{{ site.production_url | default: site.url }}/</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  {% for post in site.posts %}
+  <url>
+    <loc>{{ site.production_url | default: site.url }}{{ post.url }}</loc>
+    <lastmod>{% if post.last_modified_at %}{{ post.last_modified_at | date_to_xmlschema }}{% else %}{{ post.date | date_to_xmlschema }}{% endif %}</lastmod>
+    <priority>0.80</priority>
+  </url>
+  {% endfor %}
+
+  {% for page in site.pages %}
+    {% assign page_url = page.url %}
+    
+    {% comment %} Фільтри: ігноруємо CSS, XML, JSON, robots.txt та саму sitemap {% endcomment %}
+    {% unless page_url contains ".css" or page_url contains ".xml" or page_url contains ".json" or page_url contains "robots.txt" or page_url == "/index.html" or page_url == "/" or page.sitemap_exclude == "y" %}
+  <url>
+    <loc>{{ site.production_url | default: site.url }}{{ page_url | remove: 'index.html' }}</loc>
+    <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+    <priority>0.80</priority>
+  </url>
+    {% endunless %}
+  {% endfor %}
+
+</urlset>

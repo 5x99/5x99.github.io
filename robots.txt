@@ -1,0 +1,44 @@
+---
+layout: null
+sitemap: false
+---
+
+# Allow all bots to crawl the site
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.git
+Disallow: /.github
+Disallow: /_config.yml
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Specific rules for other bots
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+# Sitemaps
+Sitemap: https://0000099.xyz/sitemap.xml
+Sitemap: https://0000099.xyz/feed.xml
+Sitemap: https://0000099.xyz/feed-news.xml
+
+# Crawl delay for all other bots
+Crawl-delay: 1

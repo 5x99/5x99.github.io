@@ -1,0 +1,47 @@
+---
+layout: null
+title: "Atom Feed"
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title }}</title>
+  <subtitle>{{ site.description }}</subtitle>
+  <link href="{{ site.production_url }}/atom.xml" rel="self"/>
+  <link href="{{ site.production_url }}/"/>
+  <id>{{ site.production_url }}/</id>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+
+  <author>
+    <name>{{ site.author | default: '0000099' }}</name>
+    <email>{{ site.email }}</email>
+  </author>
+
+  {% for post in site.posts limit:50 %}
+  <entry>
+    <title>{{ post.title }}</title>
+    <link href="{{ site.production_url }}{{ post.url }}"/>
+    <link rel="alternate" type="text/html" href="{{ site.production_url }}{{ post.url }}" />
+    <id>{{ site.production_url }}{{ post.url }}</id>
+    <published>{{ post.date | date_to_xmlschema }}</published>
+    <updated>
+      {% if post.last_modified_at %}
+        {{ post.last_modified_at | date_to_xmlschema }}
+      {% else %}
+        {{ post.date | date_to_xmlschema }}
+      {% endif %}
+    </updated>
+    <author>
+      <name>{{ site.author | default: '0000099' }}</name>
+      <email>{{ site.email }}</email>
+    </author>
+    <summary>{{ post.excerpt | strip_html }}</summary>
+    <content type="html">
+      [CDATA[
+        {{ post.content | replace: '&', '&amp;' | replace: '<', '&lt;' | replace: '>', '&gt;' }}
+      ]]
+    </content>
+    <category term="{{ post.categories | first }}" />
+  </entry>
+  {% endfor %}
+
+</feed>

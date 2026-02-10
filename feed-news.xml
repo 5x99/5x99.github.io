@@ -1,0 +1,33 @@
+---
+layout: null
+title: "Google News RSS Feed"
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:news="http://news.google.com/news_feeds">
+  <channel>
+    <title>{{ site.title }}</title>
+    <description>{{ site.description }}</description>
+    <link>{{ site.production_url }}</link>
+    <language>en</language>
+
+    {% for post in site.posts limit:50 %}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <link>{{ site.production_url }}{{ post.url }}</link>
+      <guid>{{ site.production_url }}{{ post.url }}</guid>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      <description>{{ post.excerpt | strip_html | xml_escape }}</description>
+      <news:news>
+        <news:publication>
+          <news:name>{{ site.title }}</news:name>
+          <news:language>en</news:language>
+        </news:publication>
+        <news:publication_date>{{ post.date | date_to_xmlschema }}</news:publication_date>
+        <news:title>{{ post.title | xml_escape }}</news:title>
+        <news:keywords>{{ post.categories | join: ", " }}</news:keywords>
+      </news:news>
+    </item>
+    {% endfor %}
+
+  </channel>
+</rss>

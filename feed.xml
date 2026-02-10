@@ -1,0 +1,32 @@
+---
+layout: null
+title: "RSS Feed"
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title }}</title>
+    <description>{{ site.description }}</description>
+    <link>{{ site.production_url }}</link>
+    <atom:link href="{{ site.production_url }}/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <language>en-us</language>
+    <managingEditor>0000099@duck.com</managingEditor>
+    <webMaster>0000099@duck.com</webMaster>
+
+    {% for post in site.posts limit:50 %}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <description>{{ post.excerpt | strip_html | xml_escape }}</description>
+      <link>{{ site.production_url }}{{ post.url }}</link>
+      <comments>{{ site.production_url }}{{ post.url }}#disqus_thread</comments>
+      <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+      <guid isPermaLink="true">{{ site.production_url }}{{ post.url }}</guid>
+      <content:encoded>{{ post.content | xml_escape }}</content:encoded>
+      <author>0000099@duck.com</author>
+      <category>{{ post.categories | first }}</category>
+    </item>
+    {% endfor %}
+
+  </channel>
+</rss>

@@ -1,0 +1,48 @@
+<!-- JSON-LD Structured Data for Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "description": "{{ site.description }}",
+  "url": "{{ site.production_url }}",
+  "sameAs": [
+    "https://bsky.app/profile/0000099.xyz"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author | default: '0000099' }}",
+    "email": "{{ site.email }}"
+  }
+}
+</script>
+
+<!-- JSON-LD Structured Data for BlogPosting -->
+{% if page.title %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title }}",
+  "description": "{{ page.excerpt | strip_html | truncatewords: 30 }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author | default: '0000099' }}"
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  {% if page.last_modified_at %}
+  "dateModified": "{{ page.last_modified_at | date_to_xmlschema }}",
+  {% else %}
+  "dateModified": "{{ page.date | date_to_xmlschema }}",
+  {% endif %}
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}"
+  }
+}
+</script>
+{% endif %}

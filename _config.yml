@@ -1,0 +1,30 @@
+url: "https://0000099.xyz"
+production_url: "https://0000099.xyz"   
+
+title: "0000099"
+description: "A blog documenting the journey through computer related problems."
+author: "0000099"
+email: "0000099@duck.com"
+twitter: https://bsky.app/profile/0000099.xyz
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# SEO
+permalink: /:year/:month/:day/:title/
+paginate: 10
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+excerpt_separator: "\n\n"
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:year/:month/:day/:title/
+

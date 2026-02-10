@@ -1,0 +1,54 @@
+<!-- Favicons and Web App Manifest -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- RSS and Feed -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="{{ '/feed.xml' | relative_url }}" />
+<link rel="alternate" type="application/atom+xml" title="Atom Feed" href="{{ '/atom.xml' | relative_url }}" />
+<link rel="alternate" type="application/rss+xml" title="Google News Feed" href="{{ '/feed-news.xml' | relative_url }}" />
+
+<!-- SEO Meta Tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ page.description | default: site.description | strip_html | truncatewords: 30 }}">
+<meta name="keywords" content="blog, technology, computer, problems, solutions">
+<meta name="author" content="{{ site.author | default: '0000099' }}">
+<meta name="language" content="English">
+
+<!-- Open Graph for Social Media -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description | strip_html | truncatewords: 30 }}">
+<meta property="og:site_name" content="{{ site.title }}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}">
+<meta name="twitter:description" content="{{ page.description | default: site.description | strip_html | truncatewords: 30 }}">
+
+<!-- Robots and Crawling -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+
+<!-- Search Engine Verification -->
+<!-- Add Google Search Console verification here -->
+<!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE"> -->
+
+<!-- Mobile Friendly -->
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#ffffff">
+
+<!-- Structured Data -->
+{% include seo-schema.html %}
