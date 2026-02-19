@@ -4,42 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index | Ninety-nine</title>
+    <title>Home | Ninety-nine</title>
+    <meta name="description" content="Ninety-nine is a simple publishing website for sharing thoughts, notes, articles, and more.">
+    <meta name="keywords" content="Ninety-nine, publishing, articles, books, notes, blog, author">
+    <meta name="author" content="Ninety-nine">
 </head>
 
 <body>
     <header>
-        <center>
-            <u>
-                <h1>Ninety-nine</h1>
-            </u>
-            <img src="public/logo.png" alt="Ninety-nine logo" height="100px;">
-            <div style="font-size:16pt; margin:20px;">
-                Welcome to Ninety-nine website! <br>
-                This is a simple publishing website that was created to share thoughts, notes <br>
-                and other stuff.
-            </div>
-        </center>
-        <div id="link-box" style="border: 1px solid black; padding-left:10px; padding-right: 10px; margin:50px;">
-            <p>
-                <a href="articles.html">Articles</a> |
-                <a href="books.html">Books</a> |
-                <a href="news-notes.html">News notes</a> |
-                <a href="about.html">About author</a>
+        <div style="text-align:center;">
+            <h1 style="text-decoration: underline;">Ninety-nine</h1>
+            <img src="public/logo.png" alt="Ninety-nine logo" style="height:100px;" loading="lazy">
+            <p style="font-size:1.2em; margin:20px;">
+                Welcome to Ninety-nine!<br>
+                A simple publishing website to share thoughts, notes, articles, and more.
             </p>
         </div>
-        </nav>
+        <div style="text-align:center;">
+            <nav aria-label="Main navigation">
+                <ul id="link-box" style="border-radius:2px; border:1px solid #000; display:inline-block; padding:10px 20px; margin:50px auto; list-style:none; text-align:center;">
+                    <li style="display:inline;"><a href="articles.html">Articles</a></li>
+                    <li style="display:inline;"> | <a href="books.html">Books</a></li>
+                    <li style="display:inline;"> | <a href="news-notes.html">News notes</a></li>
+                    <li style="display:inline;"> | <a href="about.html">About author</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
-
+        <section aria-labelledby="welcome-heading" style="text-align:center; margin-top:30px;">
+            <h2 id="welcome-heading">Read & Share</h2>
+            <p>
+               If you read some articles on this site and you liked it don't be shy to share the link with others.<br>
+            </p>
+        </section>
     </main>
     <footer>
-        <center>
-            <p>&copy; 2026 Ninety-nine. All rights reserved.
-                <br>
-                <img src="public/by-nc-sa.png" alt="Licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License." height="16px;"> 
-            </p>
-        </center>
+        <div style="text-align:center; font-size:0.95em; margin-top:40px;">
+            <p>&copy; 2026 Ninety-nine. All rights reserved.</p>
+            <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener noreferrer">
+                <img src="public/by-nd.png" alt="Creative Commons BY-ND 4.0 License" style="height:16px; vertical-align:middle;"> Licensed under CC BY-ND 4.0
+            </a>
+        </div>
     </footer>
 </body>
 
